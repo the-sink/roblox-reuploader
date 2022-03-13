@@ -9,6 +9,8 @@ As many are already well aware of, [Roblox is making it so that audio above 6 se
 
 **Make sure you have the quota available to upload all of the audio.** Another change as a result of this is that audio uploads are now free - but every user has a monthly quota that is dependent on a few factors (such as whether you are ID verified). You can check your quota by visiting the audio upload page on the website. The plugin will display the **maximum** total number of assets it intends to upload on-screen and will require you to confirm this. Keep in mind, this number is not *neccesarily* the final amount of assets that will be uploaded, as it keeps a running list of all of the assets it has previously uploaded (these are used instead of uploading duplicates). Invalid/copyrighted assets and HTTP errors can affect this as well, of course.
 
+**Known issue:** The server script currently saves a list of all files it has migrated to `uploaded_id_list.json`. This file **does not** record what profile these assets have been uploaded to (i.e. if it was uploaded to your profile, or a specific group you're in if editing a group game). This means, for example, if you used this tool in a game on your profile to migrate audio that *also* exists in a group game you are about to migrate, the **already re-uploaded files** that have been uploaded to your account will be used on the group game, thus failing to meet the new permissions checks being imposed on March 22nd. This will be fixed soon.
+
 # How to use
 
 Keep in mind, this tool has only been tested on Windows 10 so far.
@@ -71,3 +73,5 @@ The last step before being able to use the tool is to start the Python server. D
 Everything should be ready now. In Studio, simply click on the "Reupload" plugin button to start.
 
 ![button](https://i.imgur.com/vLzoVPt.png)
+
+Make sure not to delete or misplace `uploaded_id_list.json`. This is the file that prevents the server from uploading duplicate audio, as it stores a running list of all reuploads it has completed (old ID and new ID). If this file is lost, any audio that needs to be migrated that was *previously* already migrated by the tool will need to be uploaded again, wasting upload quota.
