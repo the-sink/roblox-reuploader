@@ -1,12 +1,10 @@
 local HttpService = game:GetService("HttpService")
-local MarketplaceService = game:GetService("MarketplaceService")
 
 local toolbar = plugin:CreateToolbar("Audio Reupload")
 local captureButton = toolbar:CreateButton("Reupload", "Locates audio that will be unavailable after the permissions update, and attempts to re-upload them using an external server.", "rbxassetid://9087444202")
 
 captureButton.ClickableWhenViewportHidden = true
 
-local lastRequest = 0
 local servicesToScan = {"Workspace", "Lighting", "ReplicatedFirst", "ReplicatedStorage", "ServerScriptService", "ServerStorage", "StarterGui", "StarterPack", "StarterPlayer", "SoundService", "Chat"}
 
 local function httpRequest(url, data)
@@ -24,7 +22,9 @@ captureButton.Click:Connect(function()
 	local completed = false
 	local audioIds = {}
 	local replacements = {}
-
+	
+	local gui
+	
 	local success, err = pcall(function()
 		print("Gathering asset IDs...")
 		for _, serviceName in pairs(servicesToScan) do
@@ -54,7 +54,7 @@ captureButton.Click:Connect(function()
 		
 		if #audioIds > 0 then
 			print("Found " .. #audioIds .. " asset IDs to send.")
-		
+			
 			local data = HttpService:JSONEncode(audioIds)
 		
 			local response = httpRequest("http://localhost:37007/get-neccesary-downloads?creator_id=" .. tostring(game.CreatorId) .. "&creator_type=" .. tostring(game.CreatorType.Name) .. "&place_id=" .. tostring(game.PlaceId), data)
@@ -66,19 +66,39 @@ captureButton.Click:Connect(function()
 			if amount > 0 then
 				print("Downloading and re-uploading required assets...")
 				
-				local gui = script.Parent.ProgressGui:Clone()
+				gui = script.Parent.ProgressGui:Clone()
 				
 				gui.Parent = game:GetService("CoreGui")
 				
 				local abort = false
-				local buttonHook
+				local continuing = false
+				local elapsed = 0
 				
-				buttonHook = gui.Main.Container.Abort.MouseButton1Down:Connect(function()
+				gui.Main.Confirmation.Label.Text = "Confirm re-upload of <b>" .. amount .. "</b> assets (at most):"
+				
+				gui.Main.Container.Abort.MouseButton1Down:Connect(function()
 					abort = true
-					buttonHook:Disconnect()
 					gui.Main.Container.Abort.Visible = false
 					gui.Main.Container.Label.Text = "<b>Aborting</b>"
 				end)
+				
+				gui.Main.Confirmation.Yes.MouseButton1Down:Connect(function()
+					continuing = true
+					gui.Main.Container.Visible = true
+					gui.Main.Confirmation.Visible = false
+				end)
+				
+				gui.Main.Confirmation.No.MouseButton1Down:Connect(function()
+					elapsed = 15
+				end)
+				
+				repeat elapsed += task.wait() until continuing or elapsed >= 15
+				
+				if not continuing then
+					print("Ignoring")
+					gui:Destroy()
+					return
+				end
 				
 				for i, asset in pairs(targetAudioAssets) do
 					if abort then break end
@@ -126,7 +146,6 @@ captureButton.Click:Connect(function()
 					warn("Reupload has been aborted!")
 				end
 				
-				gui:Destroy()
 				completed = true
 			else
 				print("No audio assets have been determined by the Python server to need replacement. Check the built-in Audio Discovery plugin to make sure!")
@@ -140,6 +159,10 @@ captureButton.Click:Connect(function()
 		print("Done")
 	else
 		warn("Error while capturing audio: " .. err .. "\nMake sure the Python server is running! If problems persist, submit an issue report or contact me on Discord at The_Sink#4096.")
+	end
+	
+	if gui then
+		gui:Destroy()
 	end
 
 	task.wait(3)
