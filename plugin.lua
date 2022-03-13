@@ -19,7 +19,6 @@ end
 captureButton.Click:Connect(function()
 	captureButton.Enabled = false
 	
-	local completed = false
 	local audioIds = {}
 	local replacements = {}
 	
@@ -145,8 +144,6 @@ captureButton.Click:Connect(function()
 				else
 					warn("Reupload has been aborted!")
 				end
-				
-				completed = true
 			else
 				print("No audio assets have been determined by the Python server to need replacement. Check the built-in Audio Discovery plugin to make sure!")
 			end
