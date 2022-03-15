@@ -2,5 +2,4 @@ fastapi
 uvicorn
 tqdm
 requests
-fleep
 bs4
