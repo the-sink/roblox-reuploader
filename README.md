@@ -1,6 +1,6 @@
 <img src="resources/icon.png" align="right" height="84" />
 
-# Roblox Bulk Reupload Tool [![License](https://img.shields.io/github/license/the-sink/roblox-reuploader)](https://github.com/the-sink/roblox-reuploader/blob/main/LICENSE) [![Issues](https://img.shields.io/github/issues/the-sink/roblox-reuploader)](https://github.com/the-sink/roblox-reuploader/issues)
+# Bulk Audio Reupload Helper [![License](https://img.shields.io/github/license/the-sink/roblox-reuploader)](https://github.com/the-sink/roblox-reuploader/blob/main/LICENSE) [![Issues](https://img.shields.io/github/issues/the-sink/roblox-reuploader)](https://github.com/the-sink/roblox-reuploader/issues)
 
 As many are already well aware of, [Roblox is making it so that audio above 6 seconds can only be used if you are the uploader](https://devforum.roblox.com/t/action-needed-upcoming-changes-to-asset-privacy-for-audio/1701697) on March 22nd 2022. This tool's objective is to ease the process of transitioning your game over, by automatically collecting all audio that requires migration and automatically re-uploading it into your profile (or the group, if you're running this in a group game).
 
