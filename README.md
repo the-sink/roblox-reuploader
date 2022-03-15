@@ -65,7 +65,7 @@ Once the cookies are added, you should be ready on the server side.
 
 The companion plugin is available [here](https://www.roblox.com/library/9106046275/Bulk-Audio-Reupload-Helper) to install. This plugin will send the server a list of all IDs that need to be reuploaded, and replaces all old IDs with the new ones in studio once the uploads have completed.
 
-A copy of the required plugin exists in the repo, called `AudioUpload.rbxmx`, if you wish to use a local copy instead.
+A copy of the required plugin exists in the repo, called `AudioReupload.rbxmx`, if you wish to use a local copy instead.
 
 ## Step 4: Start the Python server
 
