@@ -100,6 +100,9 @@ def get_neccesary_downloads(ids: List[int], game_creator_id: int, game_creator_t
                 if asset.get('duration') < 6: # Audio length qualifies it as a sound effect
                     continue
 
+                if asset.get('name') == "(Removed for copyright)" or asset.get('name') == "[ Content Deleted ]": # Ignore audio that has been removed for copyright/moderated
+                    continue
+
                 if game_creator_id == creator_id and game_creator_type == creator_type: # Ignore audio created by place owner
                     continue
 
@@ -114,9 +117,15 @@ def get_neccesary_downloads(ids: List[int], game_creator_id: int, game_creator_t
                         continue
                 
                 download_list.append({"id": asset.get('id'), "name": asset.get('name')})
+        else:
+            pbar.write("Request error " + str(audio_info.status_code))
 
     if len(download_list) < 1:
         print("No assets have been detected that need to be reuploaded!")
+
+    # obtain X-CSRF-TOKEN header in preparation for the upload process
+    initial_request = session.post("https://publish.roblox.com/v1/audio")
+    csrf_token = initial_request.headers.get("x-csrf-token")
 
     return download_list
 
@@ -139,9 +148,9 @@ def upload(id: int, data: str, name: str):
     if current_creator_type == "Group":
         group_id = current_creator_id
 
-    if csrf_token == 0:
-        initial_request = session.post("https://publish.roblox.com/v1/audio")
-        csrf_token = initial_request.headers.get("x-csrf-token")
+    #if csrf_token == 0:
+    #    initial_request = session.post("https://publish.roblox.com/v1/audio")
+    #    csrf_token = initial_request.headers.get("x-csrf-token")
 
     file_data = base64.b64encode(data).decode('ascii')
     upload = session.post("https://publish.roblox.com/v1/audio",
