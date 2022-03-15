@@ -1,14 +1,14 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBXBF0FAAB26D0B4DCE89E95E1749C95F42">
+	<Item class="Folder" referent="RBX5BBB3980A75044E9A1EE3B048CDA74D6">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
 			<string name="Name">AudioReupload</string>
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBX2E1A3AC339F347759803013AAE01F6E2">
+		<Item class="Script" referent="RBX3AB0282E89FF4867BDA19F7114E1D204">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<bool name="Disabled">false</bool>
@@ -24,7 +24,7 @@ captureButton.ClickableWhenViewportHidden = true
 
 local servicesToScan = {"Workspace", "Lighting", "ReplicatedFirst", "ReplicatedStorage", "ServerScriptService", "ServerStorage", "StarterGui", "StarterPack", "StarterPlayer", "SoundService", "Chat"}
 
-local function httpRequest(url, data)
+local function httpRequest(url,  data)
 	return HttpService:RequestAsync({
 		Url = url,
 		Method = "POST",
@@ -34,6 +34,17 @@ local function httpRequest(url, data)
 end
 
 captureButton.Click:Connect(function()
+	local injectionPerms = pcall(function()
+		local testScript = Instance.new("Script", game.CoreGui)
+		testScript.Source = "test"
+		testScript:Destroy()
+	end)
+
+	if not injectionPerms then
+		error("Plugin requires script injection permissions!")
+	end
+	
+	
 	captureButton.Enabled = false
 
 	local audioIds = {}
@@ -172,7 +183,7 @@ captureButton.Click:Connect(function()
 	if success then
 		print("Done")
 	else
-		warn("Error while capturing audio: " .. err .. "\nMake sure the Python server is running! If problems persist, submit an issue report or contact me on Discord at The_Sink#4096.")
+		warn("Error while capturing audio: " .. err .. "\nMake sure the plugin has HTTP request permissions, and that the Python server is running!")
 	end
 
 	if gui then
@@ -187,7 +198,7 @@ end)]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ScreenGui" referent="RBX2B6FBAA55DFD4019875A5CA8D0620719">
+		<Item class="ScreenGui" referent="RBX063FB885D1914F4FAC1E9F8BE90463FD">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<bool name="AutoLocalize">true</bool>
@@ -201,7 +212,7 @@ end)]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 				<token name="ZIndexBehavior">1</token>
 			</Properties>
-			<Item class="Frame" referent="RBX9416137132CF430083F69E6BE346F717">
+			<Item class="Frame" referent="RBX625B7BAD1F8A4FB1A02D685059F684D2">
 				<Properties>
 					<bool name="Active">false</bool>
 					<Vector2 name="AnchorPoint">
@@ -255,7 +266,7 @@ end)]]></ProtectedString>
 					<bool name="Visible">true</bool>
 					<int name="ZIndex">1</int>
 				</Properties>
-				<Item class="Frame" referent="RBX06E2720A1E65443E8FF57EBE8E508FCF">
+				<Item class="Frame" referent="RBXBC2E6A66021D47D1940D7218803587A6">
 					<Properties>
 						<bool name="Active">false</bool>
 						<Vector2 name="AnchorPoint">
@@ -309,7 +320,7 @@ end)]]></ProtectedString>
 						<bool name="Visible">false</bool>
 						<int name="ZIndex">1</int>
 					</Properties>
-					<Item class="TextLabel" referent="RBX1B352F8B729A41E381B3767F4F5986F1">
+					<Item class="TextLabel" referent="RBX40B79D0127974E91BC142E0D844632E2">
 						<Properties>
 							<bool name="Active">false</bool>
 							<Vector2 name="AnchorPoint">
@@ -387,7 +398,7 @@ end)]]></ProtectedString>
 							<int name="ZIndex">1</int>
 						</Properties>
 					</Item>
-					<Item class="Frame" referent="RBX17B7B068B64A4C05B7BB737EAC4C9B8C">
+					<Item class="Frame" referent="RBX51373E29E34D498F8900ACDFF88E393F">
 						<Properties>
 							<bool name="Active">true</bool>
 							<Vector2 name="AnchorPoint">
@@ -441,7 +452,7 @@ end)]]></ProtectedString>
 							<bool name="Visible">true</bool>
 							<int name="ZIndex">1</int>
 						</Properties>
-						<Item class="Frame" referent="RBX98077DAA214F4D54AA5E6DF53B6DB893">
+						<Item class="Frame" referent="RBX321D9CFD7A754D55BEF049270260F8B8">
 							<Properties>
 								<bool name="Active">false</bool>
 								<Vector2 name="AnchorPoint">
@@ -497,7 +508,7 @@ end)]]></ProtectedString>
 							</Properties>
 						</Item>
 					</Item>
-					<Item class="TextButton" referent="RBXC3EA694085C34D7C9E985B2E268DA5E3">
+					<Item class="TextButton" referent="RBX3A779F9287E243E39915288EF18C69B2">
 						<Properties>
 							<bool name="Active">true</bool>
 							<Vector2 name="AnchorPoint">
@@ -578,7 +589,7 @@ end)]]></ProtectedString>
 							<bool name="Visible">true</bool>
 							<int name="ZIndex">1</int>
 						</Properties>
-						<Item class="UICorner" referent="RBX4AB9B148FBBD4F07B1EFE615F16F26A2">
+						<Item class="UICorner" referent="RBX08761E347BBE4F02893297B983C6E225">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<UDim name="CornerRadius">
@@ -592,7 +603,7 @@ end)]]></ProtectedString>
 						</Item>
 					</Item>
 				</Item>
-				<Item class="UICorner" referent="RBXEA0FE42760E4442C9825998F2CE6AF7E">
+				<Item class="UICorner" referent="RBX61424669AFAB4225B520FF4DD8E857E5">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<UDim name="CornerRadius">
@@ -604,7 +615,7 @@ end)]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="Frame" referent="RBX2A8A1CB5FB124EF389899D2E4B4CFAF0">
+				<Item class="Frame" referent="RBX29C8315A00AE42ECA21C50ACDCDC60EC">
 					<Properties>
 						<bool name="Active">false</bool>
 						<Vector2 name="AnchorPoint">
@@ -658,7 +669,7 @@ end)]]></ProtectedString>
 						<bool name="Visible">true</bool>
 						<int name="ZIndex">1</int>
 					</Properties>
-					<Item class="TextLabel" referent="RBX635233087EFB4201847FE56C048E3C5D">
+					<Item class="TextLabel" referent="RBXC1CB25A582344BFA94405D82D4C895F0">
 						<Properties>
 							<bool name="Active">false</bool>
 							<Vector2 name="AnchorPoint">
@@ -736,7 +747,7 @@ end)]]></ProtectedString>
 							<int name="ZIndex">1</int>
 						</Properties>
 					</Item>
-					<Item class="TextButton" referent="RBX5292BF65EDD947B1A59B84A3C153A2FF">
+					<Item class="TextButton" referent="RBXE103ECEDB7E74EE2850581BC66412884">
 						<Properties>
 							<bool name="Active">true</bool>
 							<Vector2 name="AnchorPoint">
@@ -817,7 +828,7 @@ end)]]></ProtectedString>
 							<bool name="Visible">true</bool>
 							<int name="ZIndex">1</int>
 						</Properties>
-						<Item class="UICorner" referent="RBXF9053565067C447E864C3DDDCF639ABF">
+						<Item class="UICorner" referent="RBX32C4D40833D041908A6A0F6BD0193084">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<UDim name="CornerRadius">
@@ -830,7 +841,7 @@ end)]]></ProtectedString>
 							</Properties>
 						</Item>
 					</Item>
-					<Item class="TextButton" referent="RBXFE01FCDA4FFC45A29CF45C4D9877BB22">
+					<Item class="TextButton" referent="RBX30454CB43D3F4F7393F9E7B8A28A3CD6">
 						<Properties>
 							<bool name="Active">true</bool>
 							<Vector2 name="AnchorPoint">
@@ -911,7 +922,7 @@ end)]]></ProtectedString>
 							<bool name="Visible">true</bool>
 							<int name="ZIndex">1</int>
 						</Properties>
-						<Item class="UICorner" referent="RBX2A38CB002F1145F4BF23B5FE4F5C07E4">
+						<Item class="UICorner" referent="RBX4ABB1774D43C4632A343C6E7A91DE2BE">
 							<Properties>
 								<BinaryString name="AttributesSerialize"></BinaryString>
 								<UDim name="CornerRadius">
