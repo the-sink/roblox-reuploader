@@ -25,7 +25,7 @@ You can download Python [here](https://www.python.org/). The version I have pers
 
 If you are installing it for the first time, it is likely you will need to restart (or sign out and sign back in), so do that once you have.
 
-## Step 1: Download server & plugin
+## Step 1: Download server
 
 Locate the "Download ZIP" button and download this repo to your machine:
 
@@ -63,7 +63,9 @@ Once the cookies are added, you should be ready on the server side.
 
 ## Step 3: Install Roblox plugin
 
-A copy of the required plugin exists in the repo: `AudioUpload.rbxmx` (it will be uploaded to Roblox once the plugin has been tested in more scenarios). Until it's uploaded to Roblox, you will need to insert this plugin file into your local plugins folder. This can be found by launching Studio, navigating to the Plugins tab, and clicking "Plugins Folder" on the left. Copy the `.rbxmx` file into that folder, then restart Studio.
+The companion plugin is available [here](https://www.roblox.com/library/9106046275/Bulk-Audio-Reupload-Helper) to install. This plugin will send the server a list of all IDs that need to be reuploaded, and replaces all old IDs with the new ones in studio once the uploads have completed.
+
+A copy of the required plugin exists in the repo, called `AudioUpload.rbxmx`, if you wish to use a local copy instead.
 
 ## Step 4: Start the Python server
 
