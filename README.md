@@ -19,7 +19,7 @@ As many are already well aware of, [Roblox is making it so that audio above 5.5 
 
 The included reupload server is written in Python and will be required at all times while using this program.
 
-You can download the latest version of Python [here](**https://www.python.org/**), or, if you are on Windows, through the Microsoft Store.
+You can download the latest version of Python [here](**https://www.python.org/**). If you are on Windows, installing Python through the Microsoft Store is also an option.
 The version I have personally tested this on is **3.10.2**.
 
 If you are installing it for the first time, it is likely you will need to restart your system (or relog,) and whatever terminals you have open at the moment. 
